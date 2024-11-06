@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap5 %}
+{% block content %}
+
+        <!--================Home Banner Area =================-->
+        <section class="home_banner_area">
+            <div class="banner_inner">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="home_left_img">
+								<img style="max-width: 80%; max-height: fit-content; border-radius: 0 50% 50%  50%" src="{{ user.image.url }}" alt="">
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="banner_content">
+								<h5>Bu men</h5>
+								<h2>{{ user.full_name }}</h2>
+                                <p>{{ user.description }}</p>
+								<a class="banner_btn" href="{{ user.url }}">Hire me</a>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+        </section>
+        <!--================End Home Banner Area =================-->
+        
+        <!--================Welcome Area =================-->
+        <section class="welcome_area p_120">
+        	<div class="container">
+        		<div class="row welcome_inner">
+        			<div class="col-lg-6">
+        				<div class="welcome_text">
+        					<h4>O'zim haqimda</h4>
+        					<p>{{ about.description }}</p>
+        					<div class="row">
+        						<div class="col-md-4">
+        							<div class="wel_item">
+        								<i class="lnr lnr-database"></i>
+        								<h4>{{ about.total_users }}</h4>
+        								<p>Umumiy foydalanuvchilar soni</p>
+        							</div>
+        						</div>
+        						<div class="col-md-4">
+        							<div class="wel_item">
+        								<i class="lnr lnr-book"></i>
+        								<h4>{{ about.total_projects }}</h4>
+        								<p>Umumiy loyihalar soni</p>
+        							</div>
+        						</div>
+        						<div class="col-md-4">
+        							<div class="wel_item">
+        								<i class="lnr lnr-users"></i>
+        								<h4>{{ about.happy_customers }}</h4>
+        								<p>Mamnun mijozlar</p>
+        							</div>
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        			<div class="col-lg-6">
+        				<div class="tools_expert">
+        					<h3>Tools Expertness</h3>
+        					<div class="skill_main">
+                                {% for skill in skills %}
+								<div class="skill_item">
+									<h4>{{ skill.title }} <span class="counter">{{ skill.percentage }}</span>%</h4>
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+									</div>
+								</div>
+                                {% endfor %}
+							</div>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+        </section>
+        <!--================End Welcome Area =================-->
+        
+        <!--================Feature Area =================-->
+        <section class="feature_area p_120">
+        	<div class="container">
+        		<div class="main_title">
+        			<h2>offerings to my clients</h2>
+        			<p>If you are looking at blank cassettes on the web, you may be very confused at the difference in price. You may see some for as low as $.17 each.</p>
+        		</div>
+        		<div class="feature_inner row">
+                    {% for service in services %}
+        			<div class="col-lg-4 col-md-6">
+        				<div class="feature_item">
+        					<i class="{{ service.icon }}"></i>
+        					<h4>{{ service.title }}</h4>
+        					<p>{{ service.description }}</p>
+        				</div>
+        			</div>
+                    {% endfor %}
+        		</div>
+        	</div>
+        </section>
+        <!--================End Feature Area =================-->
+        
+        <!--================Projects Area =================-->
+        <section class="projects_area p_120">
+        	<div class="container">
+        		<div class="main_title">
+					<h2>Men ishlagan loyihalar</h2>
+				</div>
+        		<div class="projects_fillter">
+					<ul class="filter list">
+						<li class="active" data-filter="*"><a href="#">All Categories</a></li>
+						
+						{% for category in categories %}
+						<li data-filter=".{{ category.name }}"><a href="#">{{ category.name }}</a></li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="projects_inner row">
+
+					{% for portfolio in portfolios %}
+					<div class="col-lg-4 col-sm-6 brand {{ portfolio.category.id }}">
+						<div class="projects_item">
+							<img class="img-fluid" src="{{ portfolio.image.url }}" alt="">
+							<div class="projects_text">
+								<a href="/"><h4>{{ portfolio.title }} {{ portfolio.category.id }}</h4></a>
+								<p>{{ portfolio.description }}</p>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					
+				</div>
+        	</div>
+        </section>
+        <!--================End Projects Area =================-->
+        
+
+        <!--================Latest Blog Area =================-->
+        <section class="latest_blog_area p_120">
+        	<div class="container">
+        		<div class="main_title">
+        			<h2>So'ngi postlar</h2>
+        			<p>Mening so'nggi yozgan postllarim</p>
+        		</div>
+        		<div class="row latest_blog_inner">
+                    {% for blog in posts %}
+        			<div class="col-lg-4">
+        				<div class="l_blog_item">
+        					<div class="l_blog_img">
+        						<img style="width: 360px; height: 180px" class="img-fluid" src="{{ blog.image.url }}" alt="">
+        					</div>
+        					<div class="l_blog_text">
+        						<div class="date">
+        							<a href="#">{{ blog.created_at }}  |  By Sadullayev Asilbek</a>
+        						</div>
+        						<a href="#"><h4>{{ blog.title }}</h4></a>
+        						<p>{{ blog.description }}</p>
+        					</div>
+        				</div>
+        			</div>
+                    {% endfor %}
+        		</div>
+        	</div>
+        </section>
+        <!--================End Latest Blog Area =================-->
+{% endblock %}
